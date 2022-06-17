@@ -13,30 +13,42 @@ namespace CabInvoiceGenerator
         private readonly double MINIMUM_FARE = 5;
         public double distance;
         public int time;
-        public InvoiceGenerator(double distance, int time)
-        {
-            this.distance = distance;
-            this.time = time;
-        }
-        public double CalculateFare()
+        public double CalculateFare(Ride ride)
         {
             double totalFare = 0;
-            if (distance >= 0 && time >= 0)
+            if (ride.distance >= 0 && ride.time >= 0)
             {
-                totalFare = distance * MINIMUM_COST_PER_KM + time * COST_PER_MINUTE;
+                totalFare = ride.distance * MINIMUM_COST_PER_KM + ride.time * COST_PER_MINUTE;
             }
             else
             {
-                if (distance <= 0)
+                if (ride.distance <= 0)
                 {
-                    throw new CabInvoiceException(CabInvoiceException.ExceptionType.INVALID_DISTANCE, "Distance is Invalid");
+                    throw new CabInvoiceException(CabInvoiceException.ExceptionType.INVALID_DISTANCE, "Invalid Distance");
                 }
-                if (time < 0)
+                if (ride.time < 0)
                 {
                     throw new CabInvoiceException(CabInvoiceException.ExceptionType.INVALID_TIME, "Invalid Time");
                 }
             }
-            return totalFare;
+            return Math.Max(totalFare, MINIMUM_FARE);
         }
+        public double MultipleRides(Ride[] rides)
+        {
+            double totalFare = 0;
+            try
+            {
+                foreach (var ride in rides)
+                {
+                    totalFare += CalculateFare(ride);
+                }
+            }
+            catch (CabInvoiceException)
+            {
+                throw new CabInvoiceException(CabInvoiceException.ExceptionType.NULL_RIDES, "Rides Are Null");
+            }
+            Console.WriteLine("Total Fare: " + totalFare);
+            return totalFare;
+        }            
     }
 }

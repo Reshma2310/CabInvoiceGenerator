@@ -1,7 +1,9 @@
+using CabInvoiceGenerator;
 namespace CabInvoiceTesting
 {
     public class Tests
-    {        
+    {
+        /*UC1-Test Case
         [Test]
         public void GivenDistanceAndTime_CalculatingFare_ShouldReturnExpectedTotalFare()
         {
@@ -9,6 +11,23 @@ namespace CabInvoiceTesting
             int time = 10, expected = 160;
             CabInvoiceGenerator.InvoiceGenerator fare = new CabInvoiceGenerator.InvoiceGenerator(distance, time);
             Assert.AreEqual(expected, fare.CalculateFare());
-        }        
+        }*/
+        [Test]
+        public void DistanceAndTimeInput_CalculateForMultipleRides_ShouldReturnExpectedTotalFare()
+        {
+            double distance = 15;
+            int time = 10, expected = 160;
+            InvoiceGenerator fare = new InvoiceGenerator();
+            Ride ride = new Ride(distance, time);
+            Assert.AreEqual(expected, fare.CalculateFare(ride));
+        }
+        [Test]
+        public void MultipleRideData_CalculateForMultipleRides_ShouldReturnExpectedTotalFare()
+        {
+            int expected = 415;
+            CabInvoiceGenerator.InvoiceGenerator fare = new CabInvoiceGenerator.InvoiceGenerator();
+            Ride[] ride = { new Ride(20, 7), new Ride(10, 5), new Ride(10, 3)};
+            Assert.AreEqual(expected, fare.MultipleRides(ride));
+        }
     }
 }
