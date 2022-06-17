@@ -15,10 +15,10 @@ namespace CabInvoiceGenerator
         public int time;
         public double CalculateFare(Ride ride)
         {
-            double totalFare = 0;
+            double TotalFare = 0;
             if (ride.distance >= 0 && ride.time >= 0)
             {
-                totalFare = ride.distance * MINIMUM_COST_PER_KM + ride.time * COST_PER_MINUTE;
+                TotalFare = ride.distance * MINIMUM_COST_PER_KM + ride.time * COST_PER_MINUTE;
             }
             else
             {
@@ -31,24 +31,23 @@ namespace CabInvoiceGenerator
                     throw new CabInvoiceException(CabInvoiceException.ExceptionType.INVALID_TIME, "Invalid Time");
                 }
             }
-            return Math.Max(totalFare, MINIMUM_FARE);
+            return Math.Max(TotalFare, MINIMUM_FARE);
         }
-        public double MultipleRides(Ride[] rides)
+        public EnhancedInvoiceClass MultipleRides(Ride[] rides)
         {
-            double totalFare = 0;
+            double TotalFare = 0;
             try
             {
                 foreach (var ride in rides)
                 {
-                    totalFare += CalculateFare(ride);
+                    TotalFare += CalculateFare(ride);
                 }
             }
             catch (CabInvoiceException)
             {
                 throw new CabInvoiceException(CabInvoiceException.ExceptionType.NULL_RIDES, "Rides Are Null");
             }
-            Console.WriteLine("Total Fare: " + totalFare);
-            return totalFare;
-        }            
+            return new EnhancedInvoiceClass(rides.Length, TotalFare);
+        }
     }
 }

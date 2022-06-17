@@ -11,7 +11,8 @@ namespace CabInvoiceTesting
             int time = 10, expected = 160;
             CabInvoiceGenerator.InvoiceGenerator fare = new CabInvoiceGenerator.InvoiceGenerator(distance, time);
             Assert.AreEqual(expected, fare.CalculateFare());
-        }*/
+        }
+        UC2-TestCases
         [Test]
         public void DistanceAndTimeInput_CalculateForMultipleRides_ShouldReturnExpectedTotalFare()
         {
@@ -26,8 +27,20 @@ namespace CabInvoiceTesting
         {
             int expected = 415;
             CabInvoiceGenerator.InvoiceGenerator fare = new CabInvoiceGenerator.InvoiceGenerator();
-            Ride[] ride = { new Ride(20, 7), new Ride(10, 5), new Ride(10, 3)};
+            Ride[] ride = { new Ride(20, 7), new Ride(10, 5), new Ride(10, 3) };
             Assert.AreEqual(expected, fare.MultipleRides(ride));
+        }*/
+        [Test]
+        public void MultipleRideData_CalculateTotalFare_NoOfRides_AvgFare_ShouldReturnExpectedValues()
+        {
+            InvoiceGenerator fare = new InvoiceGenerator();
+            Ride[] ride = { new Ride(20, 7), new Ride(10, 5), new Ride(10, 3) };
+            double TotalFare = 415, NoOfRides = ride.Length, AvgFare = TotalFare / NoOfRides;
+            EnhancedInvoiceClass result = fare.MultipleRides(ride);
+            Assert.AreEqual(TotalFare, result.TotalFare);
+            Assert.AreEqual(AvgFare, result.AvgFare);
+            Assert.AreEqual(NoOfRides, result.NoOfRides);
+
         }
     }
 }
