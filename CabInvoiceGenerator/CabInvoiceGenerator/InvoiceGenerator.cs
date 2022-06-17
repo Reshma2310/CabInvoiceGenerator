@@ -12,8 +12,8 @@ namespace CabInvoiceGenerator
         private readonly int COST_PER_MINUTE = 1;
         private readonly double MINIMUM_FARE = 5;
         public double distance;
-        public double time;
-        public InvoiceGenerator(double distance, double time)
+        public int time;
+        public InvoiceGenerator(double distance, int time)
         {
             this.distance = distance;
             this.time = time;
