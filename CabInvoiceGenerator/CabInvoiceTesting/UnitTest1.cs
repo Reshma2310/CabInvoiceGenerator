@@ -29,7 +29,7 @@ namespace CabInvoiceTesting
             CabInvoiceGenerator.InvoiceGenerator fare = new CabInvoiceGenerator.InvoiceGenerator();
             Ride[] ride = { new Ride(20, 7), new Ride(10, 5), new Ride(10, 3) };
             Assert.AreEqual(expected, fare.MultipleRides(ride));
-        }*/
+        }
         [Test]
         public void MultipleRideData_CalculateTotalFare_NoOfRides_AvgFare_ShouldReturnExpectedValues()
         {
@@ -40,7 +40,7 @@ namespace CabInvoiceTesting
             Assert.AreEqual(TotalFare, result.TotalFare);
             Assert.AreEqual(AvgFare, result.AvgFare);
             Assert.AreEqual(NoOfRides, result.NoOfRides);
-        }
+        }*/
         [Test]
         public void GivenUserID_ShouldReturnExpectedTotalFare_numberOfRides_AverageFare()
         {
@@ -52,6 +52,21 @@ namespace CabInvoiceTesting
             Assert.AreEqual(TotalFare, result.TotalFare);
             Assert.AreEqual(AvgFare, result.AvgFare);
             Assert.AreEqual(NoOfRides, result.NoOfRides);
+        }
+        [Test]
+        public void GivenRideTypes_ShouldReturnAppropriatedResults()
+        {
+            double distance = 20;
+            int time = 10, expected = 210;
+            InvoiceGenerator fare = new InvoiceGenerator(RideType.NORMAL);
+            Ride ride = new Ride(distance, time);
+            Assert.AreEqual(expected, fare.CalculateFare(ride));
+
+            double premiumDistance = 15;
+            int premiumTime = 10, premiumExpected = 245;
+            InvoiceGenerator premiumtMethod = new InvoiceGenerator(RideType.PREMIUM);
+            Ride premiumRide = new Ride(premiumDistance, premiumTime);
+            Assert.AreEqual(premiumExpected, premiumtMethod.CalculateFare(premiumRide));
         }
     }
 }
