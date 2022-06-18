@@ -40,7 +40,18 @@ namespace CabInvoiceTesting
             Assert.AreEqual(TotalFare, result.TotalFare);
             Assert.AreEqual(AvgFare, result.AvgFare);
             Assert.AreEqual(NoOfRides, result.NoOfRides);
-
+        }
+        [Test]
+        public void GivenUserID_ShouldReturnExpectedTotalFare_numberOfRides_AverageFare()
+        {
+            RideRepository fare = new RideRepository();
+            Ride[] ride = { new Ride(20, 7), new Ride(10, 5), new Ride(10, 3) };
+            double TotalFare = 415, NoOfRides = ride.Length, AvgFare = TotalFare / NoOfRides;
+            fare.AddRides("First", ride);
+            var result = fare.UserInvoice("First");
+            Assert.AreEqual(TotalFare, result.TotalFare);
+            Assert.AreEqual(AvgFare, result.AvgFare);
+            Assert.AreEqual(NoOfRides, result.NoOfRides);
         }
     }
 }
